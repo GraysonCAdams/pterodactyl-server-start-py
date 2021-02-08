@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1 # Internal only
+kind: Ingress
+metadata:
+  name: server-wake-prod
+  namespace: server-wake-prod
+spec:
+  rules:
+  - host: cereal-server.graysons.network
+    http:
+      paths:
+      - backend:
+          serviceName: server-wake-prod-service
+          servicePort: 80
+  tls:
+    - hosts:
+      - cod-prod-drop

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-wake-prod
+  namespace: server-wake-prod
+  labels:
+    app: server-wake-prod
+    environment: "prod"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-wake-prod
+  template:
+    metadata:
+      labels:
+        app: server-wake-prod
+        environment: "prod"
+    spec:
+      dnsConfig:
+        nameservers:
+          - 8.8.8.8
+          - 8.8.4.4
+      containers:
+      - name: server-wake-prod
+        image: 10.0.0.242:5000/server-wake-prod:latest
+        imagePullPolicy: "Always"
+        args:
+          - python3
+          - run.py
+        envFrom:
+          - configMapRef:
+              name: server-wake-prod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-wake-prod-service
+  namespace: server-wake-prod
+spec:
+  type: NodePort
+  selector:
+    app: server-wake-prod
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+    name: server-wake-prod

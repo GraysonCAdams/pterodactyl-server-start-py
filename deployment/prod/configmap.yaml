@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-wake-prod
+  namespace: server-wake-prod
+data: {}
+  # SPOTIPY_CLIENT_ID:
+  # SPOTIPY_CLIENT_SECRET:
+  # SPOTIPY_REDIRECT_URI:
+  # SPOTIFY_SCOPE:
+  # DJANGO_DEBUG:
